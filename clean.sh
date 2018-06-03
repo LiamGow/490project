@@ -1,1 +1,1 @@
-rm *dream*.png *dream*.gif
+rm *dream*.png *dream*.gif *frame*.png

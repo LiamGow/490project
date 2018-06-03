@@ -1,5 +1,6 @@
 from PIL import Image
 def handle_image(img):
+    pass
     #print(im.tell())
     #img.save("frame" + str(img.tell()) + ".png")
 

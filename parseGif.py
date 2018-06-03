@@ -1,10 +1,10 @@
 from PIL import Image
 def handle_image(img):
     pass
-    #print(im.tell())
+    print(im.tell())
     #img.save("frame" + str(img.tell()) + ".png")
 
-im = Image.open("cat_bubbles.gif")
+im = Image.open("imsrc/cat_bubbles.gif")
 try:
     while 1:
         handle_image(im)

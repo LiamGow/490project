@@ -7,11 +7,13 @@ import scipy
 from IPython.display import display
 from PIL import Image
 
-#def check_args():
-#    if len(sys.argv) != 2:
-#        print("Usage: python3 basicDeepDream <path_to_image>")
-#        sys.exit()
-#
+BASE_SRC = "./imsrc/"
+
+def check_args():
+    if len(sys.argv) != 2:
+        print("Usage: python3 gifDeepDream <src_gif>")
+        sys.exit()
+
 #def eval_loss_and_grads(x):
 #   outs = fetch_loss_and_grads([x])
 #   loss_value = outs[0]
@@ -59,12 +61,20 @@ from PIL import Image
 #    x = np.clip(x, 0, 255).astype('uint8')
 #    return x
 #
+
+def main():
+   pass
+
 #check_args()
 #
 #K.set_learning_phase(0)
 #
+if __name__ == "__main__":
+   check_args()
+   #K.set_learning_phase(0)
+main()
 model = inception_v3.InceptionV3(weights='imagenet', include_top=False)
-print(model.summary())
+#print(model.summary())
 #
 #layer_contributions = {'mixed2': 0.2,
 #                       'mixed3': 3.,

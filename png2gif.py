@@ -11,8 +11,8 @@ import imageio
 BASE_SRC = "./imsrc/"
 BASE_OUT = "./imout/"
 
-ABSTRACTION_LEVEL = 0.8
-MAX_LOSS = 15
+ABSTRACTION_LEVEL = 0.01
+MAX_LOSS = None
 STEP = 0.01
 IMG_NM = None  # set this later, its sys.argv[1]
 NFRAMES = None  # set this later, its sys.argv[2]
@@ -49,7 +49,7 @@ def get_contributions(arch_dict, depth_tgt=0.5):
 
             candidates.append((srtV, lyrnm))
 
-    tgt_num_lyrs_that_influence_loss = 5
+    tgt_num_lyrs_that_influence_loss = 3
 
     candidates.sort()
     cand_depths = np.linspace(0, 1, len(candidates))
@@ -98,25 +98,26 @@ def main():
     model = inception_v3.InceptionV3(weights='imagenet', include_top=False)
     layer_dict = dict([(layer.name, layer) for layer in model.layers])
 
+    loss = get_loss(layer_dict)
+    set_FLGRAD(loss, model.input)
+
     # get the input img
     img_path = BASE_SRC + IMG_NM
     img_orig = preprocess_image(img_path)
     img = np.copy(img_orig)
+    print(img)
 
     # deep dream algorithm
-    gif_src_frames = []
+    gif_out_frames = []
     while (NFRAMES > 0):
-        print("\n", NFRAMES, "frames of dream left to generate")
-        loss = get_loss(layer_dict)
-        set_FLGRAD(loss, model.input)
         img = gradient_ascent(img, iterations=1, step=STEP, max_loss=MAX_LOSS)
-        gif_src_frames.append(np.copy(img))
+        gif_out_frames.append(np.copy(img))
         NFRAMES -= 1
 
     # write out the dream sequence as gif
     img_base_name = IMG_NM[0:IMG_NM.find('.')]
     gif_out_name = img_base_name + "_dreaming.gif"
-    save_gif(gif_src_frames, gif_out_name)
+    save_gif(gif_out_frames, gif_out_name)
 
 
 # --------------------- helper function section -------------------

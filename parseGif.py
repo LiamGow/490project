@@ -1,8 +1,9 @@
 from PIL import Image
 def handle_image(img):
     pass
-    print(im.tell())
-    #img.save("frame" + str(img.tell()) + ".png")
+    #print(im.tell())
+    if (img.tell() == 1):
+        img.save("frame" + str(img.tell()) + ".png")
 
 im = Image.open("imsrc/cat_bubbles.gif")
 try:

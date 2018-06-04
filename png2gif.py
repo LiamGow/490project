@@ -10,9 +10,16 @@ import imageio
 
 BASE_SRC = "./imsrc/"
 BASE_OUT = "./imout/"
+
+ABSTRACTION_LEVEL = 0.8
+MAX_LOSS = 15
+STEP = 0.01
+IMG_NM = None  # set this later, its sys.argv[1]
+NFRAMES = None  # set this later, its sys.argv[2]
+
 fetch_loss_and_grads = None
 
-def set_contributions(arch_dict, depth_tgt=0.5):
+def get_contributions(arch_dict, depth_tgt=0.5):
     # depth_tgt is the targeted level of abstraction used to determine which
     # layers influence the final loss function most. layers nearer to the end
     # of the architecture should produce representations with higher levels of
@@ -68,57 +75,58 @@ def set_FLGRAD(loss, dream):
 
     fetch_loss_and_grads = K.function([dream], outputs)
 
-
-def main():
-    check_args()
-    K.set_learning_phase(0)  # disables all training specific operations
-    model = inception_v3.InceptionV3(weights='imagenet', include_top=False)
-    layer_dict = dict([(layer.name, layer) for layer in model.layers])
-
-    layer_contributions = set_contributions(layer_dict, depth_tgt=0.99)
+def get_loss(layer_dict):
+    lyr_contr = get_contributions(layer_dict, depth_tgt=ABSTRACTION_LEVEL)
 
     loss = K.variable(0.)
-    for layer_name in layer_contributions:
-        print(layer_name)
-        coeff = layer_contributions[layer_name]
+    for layer_name in lyr_contr:
+        coeff = lyr_contr[layer_name]
+        print("Layer", layer_name, "contributing", coeff)
         activation = layer_dict[layer_name].output
         scaling = K.prod(K.cast(K.shape(activation), 'float32'))
         lyrloss = (coeff * K.sum(K.square(activation[:, 2: -2, 2: -2, :]))
                    / scaling)
         loss = loss + lyrloss
 
-    set_FLGRAD(loss, model.input)
+    return loss
 
 
-# begin deep dream algorithm
-    # hyperparams
-    step = 0.01
-    nframes = int(sys.argv[2])
-    max_loss = None
+def main():
+    global IMG_NM, NFRAMES
+    check_args()
+    K.set_learning_phase(0)  # disables all training specific operations
+    model = inception_v3.InceptionV3(weights='imagenet', include_top=False)
+    layer_dict = dict([(layer.name, layer) for layer in model.layers])
 
-    # set up path
-    img_name = sys.argv[1]
-    path = BASE_SRC + img_name
-    img_base_name = img_name[0:img_name.find('.')]
-
-    img_orig = preprocess_image(path)
+    # get the input img
+    img_path = BASE_SRC + IMG_NM
+    img_orig = preprocess_image(img_path)
     img = np.copy(img_orig)
 
+    # deep dream algorithm
     gif_src_frames = []
-    while (nframes > 0):
-        img = gradient_ascent(img, iterations=1, step=step, max_loss=max_loss)
+    while (NFRAMES > 0):
+        print("\n", NFRAMES, "frames of dream left to generate")
+        loss = get_loss(layer_dict)
+        set_FLGRAD(loss, model.input)
+        img = gradient_ascent(img, iterations=1, step=STEP, max_loss=MAX_LOSS)
         gif_src_frames.append(np.copy(img))
-        nframes -= 1
+        NFRAMES -= 1
 
+    # write out the dream sequence as gif
+    img_base_name = IMG_NM[0:IMG_NM.find('.')]
     gif_out_name = img_base_name + "_dreaming.gif"
     save_gif(gif_src_frames, gif_out_name)
 
 
 # --------------------- helper function section -------------------
 def check_args():
+    global IMG_NM, NFRAMES
     if len(sys.argv) != 3:
         print("Usage: python3 gifDeepDream <src_img> <#frames>")
         sys.exit()
+    IMG_NM = sys.argv[1]
+    NFRAMES = int(sys.argv[2])
 
 
 # deep dream functions

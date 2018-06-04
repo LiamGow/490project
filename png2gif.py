@@ -22,13 +22,13 @@ def set_contributions(TODO_some_default_params=0): #TODO make more easily config
 def main():
     global fetch_loss_and_grads
     check_args()
-
     K.set_learning_phase(0)  # disables all training specific operations
     model = inception_v3.InceptionV3(weights='imagenet', include_top=False)
-    #print(model.summary())
+    print(model.summary())
+    return
+    layer_dict = dict([(layer.name, layer) for layer in model.layers])
 
     layer_contributions = set_contributions()
-    layer_dict = dict([(layer.name, layer) for layer in model.layers])
 
     loss = K.variable(0.)
     for layer_name in layer_contributions:
@@ -88,7 +88,6 @@ def gradient_ascent(x, iterations, step, max_loss=None):
         loss_value, grad_values = eval_loss_and_grads(x)
         if max_loss is not None and loss_value > max_loss:
             break
-        #print('...Loss value at', i, ':', loss_value)
         x += step * grad_values
     return x
 
@@ -128,6 +127,6 @@ def deprocess_image(x):
     x = np.clip(x, 0, 255).astype('uint8')
     return x
 
-
+# ----------------------- run main ------------------------------
 if __name__ == "__main__":
     main()

@@ -6,9 +6,9 @@ from PIL import Image
 import imageio
 
 
-def save_img(fname, img, postprocess_func=lambda i: i):
+def save_img(path, img, postprocess_func=lambda i: i):
     pil_img = postprocess_func(np.copy(img))
-    imageio.imwrite(Cfg.out_dir + fname, pil_img)
+    imageio.imwrite(path, pil_img)
 
 
 def load_img(path, preprocess_func=lambda i: i, rows=None, cols=None):

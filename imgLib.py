@@ -1,9 +1,11 @@
-from myLib import np, Cfg
+from myLib import Cfg
+
+import numpy as np
 
 from keras.applications import inception_v3
 from keras import backend as K
-
 from keras.preprocessing import image
+
 from IPython.display import display
 from PIL import Image
 import imageio

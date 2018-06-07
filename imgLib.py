@@ -21,11 +21,6 @@ def save_gif(frame_list, fname):
         images.append(imageio.imread(Cfg.out_dir + filename))
     imageio.mimsave(Cfg.out_dir + fname, images, duration=0.1)
 
-
-def save_img(img, fname):
-    pil_img = deprocess_image(np.copy(img))
-    scipy.misc.imsave(Cfg.out_dir + fname, pil_img)
-
 def preprocess_gif(gif_path):
     imgs = []
     gif = Image.open(gif_path)
@@ -63,3 +58,6 @@ def deprocess_image(x):
     x = np.clip(x, 0, 255).astype('uint8')
     return x
 
+def save_img(img, fname, deprocess_func=deprocess_image):
+    pil_img = deprocess_func(np.copy(img))
+    scipy.misc.imsave(Cfg.out_dir + fname, pil_img)

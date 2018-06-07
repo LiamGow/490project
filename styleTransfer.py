@@ -59,6 +59,8 @@ import argparse
 from keras.applications import vgg19
 from keras import backend as K
 
+from PIL import Image, ImageEnhance
+
 from imgLib import save_img
 
 parser = argparse.ArgumentParser(description='Neural style transfer with Keras.')
@@ -122,6 +124,9 @@ def deprocess_image(x):
     # 'BGR'->'RGB'
     x = x[:, :, ::-1]
     x = np.clip(x, 0, 255).astype('uint8')
+
+    x = ImageEnhance.Sharpness(Image.fromarray(x)).enhance(2)
+
     return x
 
 # get tensor representations of our images

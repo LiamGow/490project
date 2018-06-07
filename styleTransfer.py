@@ -57,11 +57,13 @@ import time
 import argparse
 
 from keras.applications import vgg19
-from keras import backend as K
+from keras import backend as K, models
 
 from PIL import Image, ImageEnhance
 
-from imgLib import save_img
+import imgLib
+import inceptionV3Lib
+import VGG19Lib
 
 parser = argparse.ArgumentParser(description='Neural style transfer with Keras.')
 parser.add_argument('base_image_path', metavar='base', type=str,
@@ -95,41 +97,6 @@ width, height = load_img(base_image_path).size
 img_nrows = 400
 img_ncols = int(width * img_nrows / height)
 
-# util function to open, resize and format pictures into appropriate tensors
-
-
-def preprocess_image(image_path):
-    img = load_img(image_path, target_size=(img_nrows, img_ncols))
-    img = img_to_array(img)
-    img = np.expand_dims(img, axis=0)
-    img = vgg19.preprocess_input(img)
-    return img
-
-
-
-# util function to convert a tensor into a valid image
-
-
-def deprocess_image(x):
-    if K.image_data_format() == 'channels_first':
-        x = x.reshape((3, img_nrows, img_ncols))
-        x = x.transpose((1, 2, 0))
-    else:
-        x = x.reshape((img_nrows, img_ncols, 3))
-    # Remove zero-center by mean pixel
-    x = x.astype('float64')
-    x[:, :, 0] += 103.939 / 8 * 5
-    x[:, :, 1] += 116.779 / 8 * 5
-    x[:, :, 2] += 123.68 / 8 * 5
-    # 'BGR'->'RGB'
-    x = x[:, :, ::-1]
-    x = np.clip(x, 0, 255).astype('uint8')
-
-    img = ImageEnhance.Sharpness(Image.fromarray(x)).enhance(2)
-
-    x = np.array(img.getdata(), np.uint8).reshape(img.size[1], img.size[0], 3)
-
-    return x
 
 # get tensor representations of our images
 base_image = K.variable(preprocess_image(base_image_path))
@@ -150,6 +117,7 @@ input_tensor = K.concatenate([base_image,
 # the model will be loaded with pre-trained ImageNet weights
 model = vgg19.VGG19(input_tensor=input_tensor,
                     weights='imagenet', include_top=False)
+
 print('Model loaded.')
 
 # get the symbolic outputs of each "key" layer (we gave them unique names).
@@ -284,7 +252,7 @@ evaluator = Evaluator()
 
 # run scipy-based optimization (L-BFGS) over the pixels of the generated image
 # so as to minimize the neural style loss
-x = preprocess_image(base_image_path)
+x = imgLib.load_img(base_image_path)
 
 for i in range(iterations):
     print('Start of iteration', i)

@@ -30,8 +30,7 @@ def main():
 
 
     # write out the dream sequence as gif
-    gif_out_name = Cfg.img_nm_base + "_dream.gif"
-    save_gif(gif_src_frames, gif_out_name)
+    save_gif(Cfg.img_nm_base + "_dream.gif", gif_src_frames)
 
 def check_args():
     if len(sys.argv) != 2:

@@ -12,12 +12,12 @@ def main():
     check_args()
     K.set_learning_phase(0)  # disables all training specific operations
 
-    model = InceptionV3()
-    op = DeepDream(model)
+    network = InceptionV3()
+    op = DeepDream(network.model)
 
     # get the input img
     img_path = Cfg.src_dir + Cfg.img_nm
-    img = load_img(img_path, model.preprocess_image)
+    img = load_img(img_path, network.preprocess_image)
 
     # deep dream algorithm
     gif_out_frames = []

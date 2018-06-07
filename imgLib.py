@@ -8,6 +8,7 @@ from keras.preprocessing import image
 
 from IPython.display import display
 from PIL import Image
+from PIL import ImageEnhance
 import imageio
 import scipy
 
@@ -62,4 +63,5 @@ def deprocess_image(x):
 
 def save_img(img, fname, deprocess_func=deprocess_image):
     pil_img = deprocess_func(np.copy(img))
+    pil_img = ImageEnhance.Sharpness(pil_img).enhance(2)
     scipy.misc.imsave(Cfg.out_dir + fname, pil_img)

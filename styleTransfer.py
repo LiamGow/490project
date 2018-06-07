@@ -116,9 +116,9 @@ def deprocess_image(x):
         x = x.reshape((img_nrows, img_ncols, 3))
     # Remove zero-center by mean pixel
     x = x.astype('float64')
-    x[:, :, 0] += 103.939
-    x[:, :, 1] += 116.779
-    x[:, :, 2] += 123.68
+    x[:, :, 0] += 103.939 / 8 * 5
+    x[:, :, 1] += 116.779 / 8 * 5
+    x[:, :, 2] += 123.68 / 8 * 5
     # 'BGR'->'RGB'
     x = x[:, :, ::-1]
     x = np.clip(x, 0, 255).astype('uint8')

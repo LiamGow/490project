@@ -125,7 +125,9 @@ def deprocess_image(x):
     x = x[:, :, ::-1]
     x = np.clip(x, 0, 255).astype('uint8')
 
-    x = ImageEnhance.Sharpness(Image.fromarray(x)).enhance(2)
+    img = ImageEnhance.Sharpness(Image.fromarray(x)).enhance(2)
+
+    x = np.array(img.getdata(), np.uint8).reshape(img.size[1], img.size[0], 3)
 
     return x
 

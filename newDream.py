@@ -28,7 +28,7 @@ class GoogleDeepDream(Operation):
         pass
 
     @staticmethod
-    def apply(image, total_iterations, total_octaves=4):
+    def apply(image, iterations, octaves=4):
         #Step 1 - download google's pre-trained neural network
         url = 'https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip'
         data_dir = './data/'

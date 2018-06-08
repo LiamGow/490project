@@ -98,7 +98,8 @@ class StyleTransfer(Operation):
 
         # build the VGG16 network with our 3 images as input
         # the model will be loaded with pre-trained ImageNet weights
-        model = self.network.model
+        model = self.network.model.__init__(input_tensor=input_tensor,
+                                 weights='imagenet', include_top=False)
 
         print('Model loaded.')
 

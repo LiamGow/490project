@@ -26,5 +26,7 @@ class GifDream(Output):
 
                 gif_out_frames.append(filename)
 
-        finally:
+        except(ResourceExhaustedError):
             return gif_out_frames
+
+        return gif_out_frames

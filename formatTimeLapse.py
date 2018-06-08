@@ -26,5 +26,7 @@ class TimeLapse(Output):
 
                 del frame
 
-        finally:
+        except(ResourceExhaustedError):
             return gif_out_frames
+
+        return gif_out_frames

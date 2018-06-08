@@ -6,7 +6,8 @@ class Cfg:
     grad_step = 0.01
 
     image_path = None
-    image = None
+    image_base = None
+    style_path = None
     iterations = None
     rate = 1
 

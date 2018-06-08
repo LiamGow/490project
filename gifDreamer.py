@@ -30,7 +30,7 @@ def simple_run(network, operation, format):
     form = format()
 
     # get the input img
-    img = form.load(Cfg.src_dir + Cfg.image_path, net.preprocess_image)
+    img = form.load(Cfg.image_path, net.preprocess_image)
 
     # deep dream algorithm
     gif = form.run(img, op)
@@ -94,8 +94,8 @@ def check_args():
     if len(sys.argv) < 3:
         print("Usage: python3 png2gif.py <src_img> <#frames> [<rate>]")
         sys.exit()
-    Cfg.img_nm = sys.argv[1]
-    Cfg.img_nm_base = Cfg.img_nm[0:Cfg.img_nm.find('.')]
+    Cfg.image_path = sys.argv[1]
+    Cfg.image_path_base = Cfg.image_path[0:Cfg.image_path.find('.')]
     Cfg.nframes = int(sys.argv[2])
     Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
 

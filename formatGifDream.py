@@ -13,7 +13,7 @@ class GifDream(Output):
 
         for n, frame in enumerate(gif):
 
-            print("Iteration {}/{}".format(n + 1, self.args.iterations))
+            print("Frame {}/{}".format(n + 1, self.args.iterations))
             img = operation.apply(frame, iterations=self.args.iterations)
 
             # save frame

@@ -14,7 +14,7 @@ class TimeLapse(Output):
         for n in range(self.args.iterations):
 
             # run frame operation
-            print("Iteration {}/{}".format(n + 1, self.args.iterations))
+            print("Frame {}/{}".format(n + 1, self.args.iterations))
             img = operation.apply(img, iterations=self.args.rate)
 
             # save frame

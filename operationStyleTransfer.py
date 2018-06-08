@@ -266,5 +266,4 @@ class StyleTransfer(Operation):
             # print('Image saved as', fname)
             print('Iteration %d/%d completed in %ds' % (i + 1, self.args.iterations, end_time - start_time))
 
-
-        return x
+        return x.reshape(1, img_ncols, img_nrows, 3)

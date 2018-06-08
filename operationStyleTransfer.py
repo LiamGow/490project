@@ -84,7 +84,7 @@ class StyleTransfer(Operation):
         # get tensor representations of our images
         base_image = K.variable(img)
         style_reference_image = K.variable(
-            load_img(self.args.style, self.network.preprocess_func))
+            load_img(self.args.style, self.network.preprocess_image))
 
         # this will contain our generated image
         if K.image_data_format() == 'channels_first':

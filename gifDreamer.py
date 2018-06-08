@@ -57,7 +57,7 @@ def get_args():
                         help='Prefix for the saved results.')
 
     # general arguments
-    parser.add_argument('-i', '--iter', type=int, default=10, required=False,
+    parser.add_argument('-i', '--iterations', type=int, default=10, required=False,
                         help='Number of iterations to run.')
     parser.add_argument('-t', '--step', type=float, default=0.01, required=False,
                         help='Tweak step to gradient ascend by.')

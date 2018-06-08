@@ -53,7 +53,7 @@ def get_args():
     # i/o arguments
     parser.add_argument('image_path', type=str,
                         help='Path to the image/gif to transform.')
-    parser.add_argument('out_prefix', type=str, required=False,
+    parser.add_argument('-p', '--out_prefix', type=str, required=False,
                         help='Prefix for the saved results.')
 
     # general arguments

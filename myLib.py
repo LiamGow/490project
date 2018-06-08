@@ -4,11 +4,10 @@ class Cfg:
     abstraction_lvl = 1
     max_loss = None
     grad_step = 0.01
-    iterct = 150
 
-    img_nm = None
-    img_nm_base = None
-    nframes = None
+    image_path = None
+    image = None
+    iterations = None
     rate = 1
 
 
@@ -17,15 +16,13 @@ class Network:
     def __init__(self):
         self.model = None
 
+    @staticmethod
+    def preprocess_image(img):
+        return img
 
     @staticmethod
-    def preprocess(img):
-        pass
-
-
-    @staticmethod
-    def postprocess(img):
-        pass
+    def deprocess_image(img):
+        return img
 
 
 class Operation:

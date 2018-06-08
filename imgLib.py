@@ -4,11 +4,12 @@ import numpy as np
 from keras.preprocessing import image
 from PIL import Image
 import imageio
+import os
 
 
-def save_img(fname, img, postprocess_func=lambda i: i):
+def save_img(path, img, postprocess_func=lambda i: i):
     pil_img = postprocess_func(np.copy(img))
-    imageio.imwrite(Cfg.out_dir + fname, pil_img)
+    imageio.imwrite(path, pil_img)
 
 
 def load_img(path, preprocess_func=lambda i: i, rows=None, cols=None):
@@ -18,14 +19,14 @@ def load_img(path, preprocess_func=lambda i: i, rows=None, cols=None):
     return img
 
 
-def save_gif(fname, frame_list, postprocess_func=lambda i: i):
+def save_gif(path, frame_list, postprocess_func=lambda i: i):
     images = []
     filenames = []
 
-    print("saving", fname)
+    print("saving", path)
 
     for i, frame in enumerate(frame_list):
-        filename = "gif_frames/" + "frame" + str(i) + ".png"
+        filename = path + "_frame" + str(i) + ".png"
         filenames.append(filename)
 
         save_img(filename, frame, postprocess_func)
@@ -33,7 +34,10 @@ def save_gif(fname, frame_list, postprocess_func=lambda i: i):
     for filename in filenames:
         images.append(imageio.imread(Cfg.out_dir + filename))
 
-    imageio.mimsave(Cfg.out_dir + fname, images, duration=0.1)
+    imageio.mimsave(path, images, duration=0.1)
+
+    for filename in filenames:
+        os.remove(filename)
 
 
 def load_gif(gif_path, preprocess_func=lambda i: i):
@@ -42,11 +46,12 @@ def load_gif(gif_path, preprocess_func=lambda i: i):
     try:
         while 1:
             # save gif frame as png
-            fpath = Cfg.out_dir + "gif_frames/frame" + str(gif.tell()) + ".png"
+            fpath = gif_path + "_frame" + str(gif.tell()) + ".png"
             gif.save(fpath)
 
             # load png
             img = load_img(fpath, preprocess_func)
+            os.remove(fpath)
 
             # append and loop
             imgs.append(np.copy(img))

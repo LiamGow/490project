@@ -7,13 +7,14 @@ import sys
 
 
 # networks
+from myLib import Network
 from inceptionV3Lib import InceptionV3
-from newDream import PILEmptyNetwork
+from VGG19Lib import VGG19
 
 # operations
 from dreamLib import DeepDream
 from styleLib import StyleTransfer
-from newDream import GoogleDeepDream
+from googleDream import GoogleDream # only runs with Network
 
 # formats
 from timeLapse import TimeLapse
@@ -21,7 +22,6 @@ from gifDream import GifDream
 
 
 def simple_run(network, operation, format):
-    check_args()
     K.set_learning_phase(0)  # disables all training specific operations
 
     net = network()
@@ -29,13 +29,13 @@ def simple_run(network, operation, format):
     form = format()
 
     # get the input img
-    img = form.load(Cfg.src_dir + Cfg.img_nm, net.preprocess_image)
+    img = form.load(Cfg.src_dir + Cfg.image_path, net.preprocess_image)
 
     # deep dream algorithm
     gif = form.run(img, op)
 
     # write out the dream sequence as gif
-    save_gif(Cfg.img_nm_base + "_dreaming.gif", gif, net.deprocess_image)
+    save_gif(Cfg.image_path + "_dreaming.gif", gif, net.deprocess_image)
 
 
 def check_args():
@@ -48,10 +48,6 @@ def check_args():
     Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
 
 
-def main():
-    simple_run(PILEmptyNetwork, GoogleDeepDream, GifDream)
-
-
 if __name__ == "__main__":
-    main()
-
+    check_args()
+    simple_run(Network, GoogleDream, GifDream)

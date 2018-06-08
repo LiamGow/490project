@@ -10,19 +10,7 @@ import zipfile
 from myLib import Operation, Network
 
 
-class PILEmptyNetwork(Network):
-    def __init__(self):
-        self.model = None
-
-    @staticmethod
-    def preprocess_image(image):
-        return image # PIL.Image.fromarray(np.uint8(255 * image))
-
-    @staticmethod
-    def deprocess_image(image):
-        return image
-
-class GoogleDeepDream(Operation):
+class GoogleDream(Operation):
 
     def __init__(self, model):
         pass
@@ -163,7 +151,7 @@ class GoogleDeepDream(Operation):
 
             # generate details octave by octave
             for octave in range(octave_n):
-                print(octave)
+                # print(octave)
                 if octave>0:
                     hi = octaves[-octave]
                     img = resize(img, hi.shape[:2])+hi

@@ -78,13 +78,13 @@ class StyleTransfer(Operation):
 
         # dimensions of the generated picture.
         width, height = load_img(self.args.image_path).size
-        img_nrows = 400
+        img_nrows = height
         img_ncols = int(width * img_nrows / height)
 
         # get tensor representations of our images
         base_image = K.variable(img)
         style_reference_image = K.variable(
-            load_img(self.args.style, self.network.preprocess_image))
+            load_img(self.args.style, self.network.preprocess_image, img_nrows, img_ncols))
 
         # this will contain our generated image
         if K.image_data_format() == 'channels_first':

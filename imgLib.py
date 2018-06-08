@@ -32,7 +32,7 @@ def save_gif(path, frame_list, postprocess_func=lambda i: i):
         save_img(filename, frame, postprocess_func)
 
     for filename in filenames:
-        images.append(imageio.imread(Cfg.out_dir + filename))
+        images.append(imageio.imread(filename))
 
     imageio.mimsave(path, images, duration=0.1)
 

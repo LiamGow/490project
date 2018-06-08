@@ -28,7 +28,7 @@ class GoogleDeepDream(Operation):
         pass
 
     @staticmethod
-    def apply(image, iterations, octaves=4):
+    def apply(image, iterations, total_octaves=4):
         #Step 1 - download google's pre-trained neural network
         url = 'https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip'
         data_dir = './data/'
@@ -147,7 +147,7 @@ class GoogleDeepDream(Operation):
 
         def render_deepdream(t_obj, img0=img_noise,
                              iter_n=iterations, step=1.5,
-                             octave_n=octaves, octave_scale=1.4):
+                             octave_n=total_octaves, octave_scale=1.4):
             t_score = tf.reduce_mean(t_obj) # defining the optimization objective
             t_grad = tf.gradients(t_score, t_input)[0] # behold the power of automatic differentiation!
 

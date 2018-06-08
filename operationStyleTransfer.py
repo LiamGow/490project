@@ -253,7 +253,7 @@ class StyleTransfer(Operation):
         x = base_image
 
         for i in range(iterations):
-            print('Start of iteration', i)
+            print('Start of iteration', i + 1)
             start_time = time.time()
             x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(),
                                              fprime=evaluator.grads, maxfun=20)
@@ -264,6 +264,6 @@ class StyleTransfer(Operation):
             # imgLib.save_img(img, fname, self.network.deprocess_image)
             end_time = time.time()
             # print('Image saved as', fname)
-            print('Iteration %d/%d completed in %ds' % (i, self.args.iterations, end_time - start_time))
+            print('Iteration %d/%d completed in %ds' % (i + 1, self.args.iterations, end_time - start_time))
 
         return x

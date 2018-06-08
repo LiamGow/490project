@@ -22,12 +22,11 @@ from formatTimeLapse import TimeLapse
 def simple_run(network, operation, format, args):
     backend.set_learning_phase(0)  # disables all training specific operations
 
-    net = network()
-    op = operation(args, net)
+    op = operation(args, network)
     form = format(args)
 
     # get the input img
-    img = form.load(args.image_path, net.preprocess_image)
+    img = form.load(args.image_path, network.preprocess_image)
 
     # deep dream algorithm
     gif = form.run(img, op)

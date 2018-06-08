@@ -28,8 +28,10 @@ def simple_run(network, operation, format, args):
     # get the input img
     img = form.load(args.image_path, network.preprocess_image)
 
-    # deep dream algorithm
+    # dream algorithm
     gif = form.run(img, op)
+
+    print(gif.shape)
 
     # write out the dream sequence as gif
     base = os.path.splitext(os.path.basename(args.image_path))[0]

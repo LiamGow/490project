@@ -26,12 +26,12 @@ class VGG19(Network):
 
     # util function to convert a tensor into a valid image
     @staticmethod
-    def deprocess_image(img):
+    def deprocess_image(img, rows=None, cols=None):
         if backend.image_data_format() == 'channels_first':
-            img = img.reshape((3, img.shape[2], img.shape[3]))
+            img = img.reshape((3, rows, cols))
             img = img.transpose((1, 2, 0))
         else:
-            img = img.reshape((img.shape[1], img.shape[2], 3))
+            img = img.reshape((rows, cols, 3))
         # Remove zero-center by mean piimgel
         img = img.astype('float64')
         img[:, :, 0] += 103.939 / 8 * 5

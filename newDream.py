@@ -11,12 +11,12 @@ from myLib import Operation, Network
 
 
 class PILEmptyNetwork(Network):
-    def __init__(self, model):
+    def __init__(self):
         self.model = None
 
     @staticmethod
     def preprocess_image(image):
-        return PIL.Image.fromarray(np.uint8(255 * myarray))
+        return PIL.Image.fromarray(np.uint8(255 * image))
 
     @staticmethod
     def deprocess_image(image):

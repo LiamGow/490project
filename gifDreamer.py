@@ -33,7 +33,7 @@ def simple_run(network, operation, format, args):
 
     # write out the dream sequence as gif
     base = os.path.splitext(os.path.basename(args.image_path))[0]
-    save_gif(os.path.join(args.out_prefix, base) + ".gif", gif, net.deprocess_image)
+    save_gif(os.path.join(args.out_prefix, base) + ".gif", gif, network.deprocess_image)
 
 def get_args():
     parser = argparse.ArgumentParser(description='Keras gif dreamer.')

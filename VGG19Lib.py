@@ -2,6 +2,7 @@ from __future__ import print_function
 import numpy as np
 
 from keras.applications import vgg19
+from keras.preprocessing import image
 from keras import backend
 
 from PIL import Image, ImageEnhance
@@ -19,6 +20,8 @@ class VGG19(Network):
     # util function to open, resize and format pictures into tensors
     @staticmethod
     def preprocess_image(img):
+        img = image.img_to_array(img)
+        img = np.expand_dims(img, axis=0)
         return vgg19.preprocess_input(img)
 
     # util function to convert a tensor into a valid image

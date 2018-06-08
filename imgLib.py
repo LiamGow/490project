@@ -14,8 +14,6 @@ def save_img(fname, img, postprocess_func=lambda i: i):
 def load_img(path, preprocess_func=lambda i: i, rows=None, cols=None):
     img = image.load_img(path) if not rows and cols\
         else image.load_img(path, rows, cols)
-    img = image.img_to_array(img)
-    img = np.expand_dims(img, axis=0)
     img = preprocess_func(img)
     return img
 

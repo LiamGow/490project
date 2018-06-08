@@ -2,6 +2,7 @@ import numpy as np
 
 from keras.applications import inception_v3
 from keras import backend
+from keras.preprocessing import image
 
 from myLib import Network
 
@@ -15,6 +16,8 @@ class InceptionV3(Network):
 
     @staticmethod
     def preprocess_image(img):
+        img = image.img_to_array(img)
+        img = np.expand_dims(img, axis=0)
         return inception_v3.preprocess_input(img)
 
     @staticmethod

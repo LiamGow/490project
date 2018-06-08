@@ -43,7 +43,7 @@ keeping the generated image close enough to the original one.
 
 from __future__ import print_function
 
-from keras.preprocessing.image import load_img, img_to_array
+from keras.preprocessing.image import img_to_array
 import numpy as np
 from scipy.optimize import fmin_l_bfgs_b
 import time
@@ -54,7 +54,7 @@ from keras import backend as K, models
 
 from PIL import Image, ImageEnhance
 
-import imgLib
+from imgLib import *
 from myLib import Operation
 
 
@@ -83,7 +83,8 @@ class StyleTransfer(Operation):
 
         # get tensor representations of our images
         base_image = K.variable(img)
-        style_reference_image = K.variable(self.network.preprocess_image(self.args.style))
+        style_reference_image = K.variable(
+            load_img(self.args.style, self.network.preprocess_func))
 
         # this will contain our generated image
         if K.image_data_format() == 'channels_first':

@@ -12,7 +12,7 @@ def save_img(path, img, postprocess_func=lambda i: i):
 
 def load_img(path, preprocess_func=lambda i: i, size=None):
     img = image.load_img(path) if not size\
-        else image.load_img(path, size)
+        else image.load_img(path, target_size=size, interpolation='bilinear')
 
     print(img.size)
 

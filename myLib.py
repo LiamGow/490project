@@ -17,9 +17,11 @@ class Network:
     def __init__(self):
         self.model = None
 
+
     @staticmethod
     def preprocess(img):
         pass
+
 
     @staticmethod
     def postprocess(img):

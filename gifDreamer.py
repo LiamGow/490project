@@ -1,11 +1,8 @@
-import sys
 import argparse
-import os
 
 from keras import backend
 
 from imgLib import *
-from myLib import *
 
 # networks
 from myLib import Network
@@ -20,7 +17,6 @@ from operationStyleTransfer import StyleTransfer
 # formats
 from formatGifDream import GifDream
 from formatTimeLapse import TimeLapse
-
 
 
 def simple_run(network, operation, format, args):
@@ -89,18 +85,7 @@ def get_args():
     parser.add_argument('--rate', type=int, default=1, required=False,
                         help='Iterations to run per frame.')
 
-
     return parser.parse_args()
-
-
-# def check_args():
-#     if len(sys.argv) < 3:
-#         print("Usage: python3 png2gif.py <src_img> <#frames> [<rate>]")
-#         sys.exit()
-#     Cfg.image_path = sys.argv[1]
-#     Cfg.image_path_base = Cfg.image_path[0:Cfg.image_path.find('.')]
-#     Cfg.nframes = int(sys.argv[2])
-#     Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
 
 
 if __name__ == "__main__":

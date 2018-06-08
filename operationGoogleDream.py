@@ -164,6 +164,8 @@ class GoogleDream(Operation):
                 #Step 5 output deep dream image via matplotlib
                 # showarray(img/255.0)
 
+            return img
+
 
 
         #Step 3 - Pick a layer to enhance our image
@@ -177,8 +179,8 @@ class GoogleDream(Operation):
         img0 = np.float32(image)
 
         #Step 4 - Apply gradient ascent to that layer
-        render_deepdream(tf.square(T(layer)), img0)
+        return render_deepdream(tf.square(T(layer)), img0)
 
 
 if __name__ == '__main__':
-    GoogleDeepDream.apply(sys.argv[1], 10, 4)
+    GoogleDream.apply(sys.argv[1], 10, 4)

@@ -31,13 +31,13 @@ def main():
 
 
 def check_args():
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 3:
         print("Usage: python3 png2gif.py <src_img> <#frames> [<rate>]")
         sys.exit()
     Cfg.img_nm = sys.argv[1]
     Cfg.img_nm_base = Cfg.img_nm[0:Cfg.img_nm.find('.')]
     Cfg.nframes = int(sys.argv[2])
-    Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 4 else 1
+    Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
 
 if __name__ == "__main__":
     main()

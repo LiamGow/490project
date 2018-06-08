@@ -28,7 +28,7 @@ class Network:
 
 class Operation:
 
-    def __init__(self, model):
+    def __init__(self, network):
         pass
 
     def apply(self, img, iterations):

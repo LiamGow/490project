@@ -6,10 +6,10 @@ from myLib import Operation
 
 class DeepDream(Operation):
 
-    def __init__(self, args, model):
+    def __init__(self, args, network):
         self.args = args
-        self.layer_dict = dict([(layer.name, layer) for layer in model.layers])
-        self.flgrads = self.get_flgrad(self.get_loss(), model.input)
+        self.layer_dict = dict([(layer.name, layer) for layer in network.model.layers])
+        self.flgrads = self.get_flgrad(self.get_loss(), network.model.input)
 
     def apply(self, img, iterations):
         return self.gradient_ascent(img,

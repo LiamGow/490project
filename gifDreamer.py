@@ -23,7 +23,7 @@ def simple_run(network, operation, format, args):
     backend.set_learning_phase(0)  # disables all training specific operations
 
     net = network()
-    op = operation(args, net.model)
+    op = operation(args, net)
     form = format(args)
 
     # get the input img

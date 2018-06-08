@@ -12,7 +12,7 @@ from myLib import Operation, Network
 
 class GoogleDream(Operation):
 
-    def __init__(self, args, model):
+    def __init__(self, args, network):
         self.args = args
 
 

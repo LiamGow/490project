@@ -10,9 +10,9 @@ def save_img(path, img, postprocess_func=lambda i: i):
     imageio.imwrite(path, pil_img)
 
 
-def load_img(path, preprocess_func=lambda i: i, rows=None, cols=None):
-    img = image.load_img(path) if not rows and cols\
-        else image.load_img(path, rows, cols)
+def load_img(path, preprocess_func=lambda i: i, size=None):
+    img = image.load_img(path) if not size\
+        else image.load_img(path, size)
     img = preprocess_func(img)
     return img
 

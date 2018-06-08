@@ -242,7 +242,7 @@ class StyleTransfer(Operation):
 
         # run scipy-based optimization (L-BFGS) over the pixels of the generated image
         # so as to minimize the neural style loss
-        x = load_img(self.args.image_path) # try with preprocess?
+        x = load_img(self.args.image_path, self.network.preprocess_image) # try with preprocess?
 
         for i in range(iterations):
             print('Start of iteration', i)

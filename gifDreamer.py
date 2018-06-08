@@ -29,13 +29,11 @@ def simple_run(network, operation, format, args):
     img = form.load(args.image_path, network.preprocess_image)
 
     # dream algorithm
-    gif = form.run(img, op)
-
-    print(gif[0].shape)
+    frame_paths = form.run(img, op)
 
     # write out the dream sequence as gif
     base = os.path.splitext(os.path.basename(args.image_path))[0]
-    save_gif(args.out_prefix + base + ".gif", gif, network.deprocess_image)
+    save_gif(args.out_prefix + base + ".gif", frame_paths, network.deprocess_image)
 
 def get_args():
     parser = argparse.ArgumentParser(description='Keras gif dreamer.')

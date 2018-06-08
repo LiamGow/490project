@@ -11,12 +11,16 @@ class GifDream(Output):
     def run(self, gif, operation):
         gif_out_frames = []
 
-        # deep dream algorithm
-        print("Total frames", len(gif))
         for n, frame in enumerate(gif):
-            print("Iteration {}/{}", n + 1, self.args.iterations)
-            frm = operation.apply(frame, iterations=self.args.iterations)
 
-            gif_out_frames.append(np.copy(frm))
+            print("Iteration {}/{}", n + 1, self.args.iterations)
+            img = operation.apply(frame, iterations=self.args.iterations)
+
+            # save frame
+            filename = os.path.splitext(os.path.basename(
+                self.args.image_path))[0] + "_frame" + str(n) + ".png"
+            save_img(filename, img, self.args.network.deprocess_image)
+
+            gif_out_frames.append(filename)
 
         return gif_out_frames

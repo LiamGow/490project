@@ -253,7 +253,6 @@ class StyleTransfer(Operation):
         x = base_image
 
         for i in range(iterations):
-            print('Start of iteration', i + 1)
             start_time = time.time()
             x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(),
                                              fprime=evaluator.grads, maxfun=20)

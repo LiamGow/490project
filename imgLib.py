@@ -39,6 +39,18 @@ def save_gif(path, frame_list, postprocess_func=lambda i: i):
         os.remove(filename)
 
 
+def save_gif_paths(path, filenames, postprocess_func=lambda i: i):
+    images = []
+
+    for filename in filenames:
+        images.append(imageio.imread(filename))
+
+    imageio.mimsave(path, images, duration=0.1)
+
+    for filename in filenames:
+        os.remove(filename)
+
+
 def load_gif(gif_path, preprocess_func=lambda i: i):
     imgs = []
     gif = Image.open(gif_path)

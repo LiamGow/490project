@@ -4,8 +4,6 @@ from imgLib import *
 from dreamLib import DeepDream
 from inceptionV3Lib import InceptionV3
 
-from gifDream import simple_run
-
 from keras import backend as K
 
 import sys
@@ -24,11 +22,6 @@ class TimeLapse(Output):
             Cfg.nframes -= 1
 
         return gif_out_frames
-
-
-def main():
-    check_args()
-    simple_run(InceptionV3, DeepDream, TimeLapse)
 
 
 def check_args():

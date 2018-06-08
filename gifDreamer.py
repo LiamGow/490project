@@ -90,4 +90,9 @@ def get_args():
 if __name__ == "__main__":
     args = get_args()
     gs = globals()
+
+    args.network = gs[args.network]
+    args.operation = gs[args.operation]
+    args.format = gs[args.format]
+
     simple_run(gs[args.network], gs[args.operation], gs[args.format], args)

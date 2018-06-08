@@ -259,7 +259,7 @@ class StyleTransfer(Operation):
                                              fprime=evaluator.grads, maxfun=20)
             print('Current loss value:', min_val)
             # save current generated image
-            x = self.network.deprocess_image(x.copy())
+            # x = self.network.deprocess_image(x.copy())
             # fname = self.args.output_prefix + '_at_iteration_%d.png' % i
             # imgLib.save_img(img, fname, self.network.deprocess_image)
             end_time = time.time()

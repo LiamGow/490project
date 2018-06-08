@@ -1,5 +1,3 @@
-from myLib import Cfg
-
 import numpy as np
 from keras.preprocessing import image
 from PIL import Image
@@ -12,9 +10,10 @@ def save_img(path, img, postprocess_func=lambda i: i):
     imageio.imwrite(path, pil_img)
 
 
-def load_img(path, preprocess_func=lambda i: i, rows=None, cols=None):
-    img = image.load_img(path) if not rows and cols\
-        else image.load_img(path, rows, cols)
+def load_img(path, preprocess_func=lambda i: i, size=None):
+    img = image.load_img(path) if not size\
+        else image.load_img(path, target_size=size, interpolation='bilinear')
+
     img = preprocess_func(img)
     return img
 
@@ -30,6 +29,20 @@ def save_gif(path, frame_list, postprocess_func=lambda i: i):
         filenames.append(filename)
 
         save_img(filename, frame, postprocess_func)
+
+    for filename in filenames:
+        images.append(imageio.imread(filename))
+
+    imageio.mimsave(path, images, duration=0.1)
+
+    for filename in filenames:
+        os.remove(filename)
+
+
+def save_gif_paths(path, filenames, postprocess_func=lambda i: i):
+    images = []
+
+    print("saving", path)
 
     for filename in filenames:
         images.append(imageio.imread(filename))
@@ -57,4 +70,5 @@ def load_gif(gif_path, preprocess_func=lambda i: i):
             imgs.append(np.copy(img))
             gif.seek(gif.tell() + 1)
     except EOFError:
+        print("Gif frames: " + str(len(imgs)))
         return imgs

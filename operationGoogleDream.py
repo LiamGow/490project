@@ -12,11 +12,12 @@ from myLib import Operation, Network
 
 class GoogleDream(Operation):
 
-    def __init__(self, model):
-        pass
+    def __init__(self, args, network):
+        self.args = args
 
-    @staticmethod
-    def apply(image, iterations, total_octaves=4):
+
+    def apply(self, image, iterations):
+        total_octaves = self.args.octaves
         #Step 1 - download google's pre-trained neural network
         url = 'https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip'
         data_dir = './data/'
@@ -51,8 +52,8 @@ class GoogleDream(Operation):
         layers = [op.name for op in graph.get_operations() if op.type=='Conv2D' and 'import/' in op.name]
         feature_nums = [int(graph.get_tensor_by_name(name+':0').get_shape()[-1]) for name in layers]
 
-        print('Number of layers', len(layers))
-        print('Total number of feature channels:', sum(feature_nums))
+        # print('Number of layers', len(layers))
+        # print('Total number of feature channels:', sum(feature_nums))
 
      #####HELPER FUNCTIONS. I didn't go over these in the video for times sake. They are mostly just formatting functions. Scroll
      #to the bottom #########################################################################################################
@@ -163,6 +164,8 @@ class GoogleDream(Operation):
                 #Step 5 output deep dream image via matplotlib
                 # showarray(img/255.0)
 
+            return img
+
 
 
         #Step 3 - Pick a layer to enhance our image
@@ -176,8 +179,10 @@ class GoogleDream(Operation):
         img0 = np.float32(image)
 
         #Step 4 - Apply gradient ascent to that layer
-        render_deepdream(tf.square(T(layer)), img0)
+        out = render_deepdream(tf.square(T(layer)), img0)
 
+        # return PIL.Image.fromarray(np.uint8(np.clip(out, 0, 1) * 255))
+        return PIL.Image.fromarray(np.uint8(np.clip(out, 0, 255)))
 
 if __name__ == '__main__':
-    GoogleDeepDream.apply(sys.argv[1], 10, 4)
+    GoogleDream.apply(sys.argv[1], 10, 4)

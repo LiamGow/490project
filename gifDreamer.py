@@ -76,8 +76,6 @@ def get_args():
                         help='Style weight.')
     parser.add_argument('-v', '--variation', type=float, default=1.0, required=False,
                         help='Total Variation weight.')
-    parser.add_argument('-w', '--width', type=int, default=None, required=False,
-                        help='Output image width.')
 
     # google dream arguments
     parser.add_argument('--octaves', type=int, default=4, required=False,

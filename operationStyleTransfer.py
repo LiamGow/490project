@@ -78,8 +78,8 @@ class StyleTransfer(Operation):
 
         # dimensions of the generated picture.
         width, height = load_img(self.args.image_path).size
-        img_ncols = self.args.width if self.args.width else width
-        img_nrows = int(height * img_ncols / width)
+        img_nrows = height
+        img_ncols = int(width * img_nrows / height)
 
         # get tensor representations of our images
         base_image = K.variable(img)

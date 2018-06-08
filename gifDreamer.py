@@ -95,4 +95,4 @@ if __name__ == "__main__":
     args.operation = gs[args.operation]
     args.format = gs[args.format]
 
-    simple_run(gs[args.network], gs[args.operation], gs[args.format], args)
+    simple_run(args.network, args.operation, args.format, args)

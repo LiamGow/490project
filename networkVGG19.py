@@ -34,9 +34,9 @@ class VGG19(Network):
             img = img.reshape((img.shape[1], img.shape[2], 3))
         # Remove zero-center by mean piimgel
         img = img.astype('float64')
-        img[:, :, 0] += 103.939 / 8 * 5
-        img[:, :, 1] += 116.779 / 8 * 5
-        img[:, :, 2] += 123.68 / 8 * 5
+        img[:, :, 0] += 103.939  # / 8 * 5
+        img[:, :, 1] += 116.779  # / 8 * 5
+        img[:, :, 2] += 123.68  #/ 8 * 5
         # 'BGR'->'RGB'
         img = img[:, :, ::-1]
         img = np.clip(img, 0, 255).astype('uint8')

@@ -11,18 +11,20 @@ class GifDream(Output):
     def run(self, gif, operation):
         gif_out_frames = []
 
-        for n, frame in enumerate(gif):
+        try:
+            for n, frame in enumerate(gif):
 
-            print("Frame {}/{}".format(n + 1, len(gif)))
-            frame = operation.apply(frame, iterations=self.args.iterations)
+                print("Frame {}/{}".format(n + 1, len(gif)))
+                frame = operation.apply(frame, iterations=self.args.iterations)
 
-            # save frame
-            filename = os.path.splitext(os.path.basename(
-                self.args.image_path))[0] + "_frame" + str(n) + ".png"
-            save_img(filename, frame, self.args.network.deprocess_image)
+                # save frame
+                filename = os.path.splitext(os.path.basename(
+                    self.args.image_path))[0] + "_frame" + str(n) + ".png"
+                save_img(filename, frame, self.args.network.deprocess_image)
 
-            del frame
+                del frame
 
-            gif_out_frames.append(filename)
+                gif_out_frames.append(filename)
 
-        return gif_out_frames
+        finally:
+            return gif_out_frames

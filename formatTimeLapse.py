@@ -11,18 +11,20 @@ class TimeLapse(Output):
     def run(self, frame, operation):
         gif_out_frames = []
 
-        for n in range(self.args.iterations):
+        try:
+            for n in range(self.args.iterations):
 
-            print("Frame {}/{}".format(n + 1, self.args.iterations))
-            frame = operation.apply(frame, iterations=self.args.rate)
+                print("Frame {}/{}".format(n + 1, self.args.iterations))
+                frame = operation.apply(frame, iterations=self.args.rate)
 
-            # save frame
-            filename = os.path.splitext(os.path.basename(
-                self.args.image_path))[0] + "_frame" + str(n) + ".png"
-            save_img(filename, frame, self.args.network.deprocess_image)
+                # save frame
+                filename = os.path.splitext(os.path.basename(
+                    self.args.image_path))[0] + "_frame" + str(n) + ".png"
+                save_img(filename, frame, self.args.network.deprocess_image)
 
-            gif_out_frames.append(filename)
+                gif_out_frames.append(filename)
 
-            del frame
+                del frame
 
-        return gif_out_frames
+        finally:
+            return gif_out_frames

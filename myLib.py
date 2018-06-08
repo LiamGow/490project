@@ -1,15 +1,4 @@
-# class Cfg:
-#     src_dir = "./imsrc/"
-#     out_dir = "./imout/"
-#     abstraction_lvl = 1
-#     max_loss = None
-#     grad_step = 0.01
-#
-#     image_path = None
-#     image_base = None
-#     style_path = None
-#     iterations = None
-#     rate = 1
+from tensorflow.python.framework.errors_impl import ResourceExhaustedError
 
 
 class Network:

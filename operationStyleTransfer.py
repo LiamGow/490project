@@ -86,7 +86,7 @@ class StyleTransfer(Operation):
 
         # base_image = K.variable(img)
         base_image = Image.fromarray(self.network.deprocess_image(img, width, height))
-        base_image.resize((img_nrows, img_ncols), Image.LANCZOS)
+        base_image = base_image.resize((img_nrows, img_ncols), Image.LANCZOS)
         base_image = K.variable(self.network.preprocess_image(base_image))
         print(base_image.shape)
         style_reference_image = K.variable(

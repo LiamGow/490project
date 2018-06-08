@@ -4,7 +4,7 @@ from imgLib import *
 from dreamLib import DeepDream
 from inceptionV3Lib import InceptionV3
 
-from keras import backend as K
+from gifDream import simple_run
 
 import sys
 

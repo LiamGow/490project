@@ -42,6 +42,8 @@ def save_gif(path, frame_list, postprocess_func=lambda i: i):
 def save_gif_paths(path, filenames, postprocess_func=lambda i: i):
     images = []
 
+    print("saving", path)
+
     for filename in filenames:
         images.append(imageio.imread(filename))
 

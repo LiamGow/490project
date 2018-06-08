@@ -14,12 +14,12 @@ class GifDream(Output):
         for n, frame in enumerate(gif):
 
             print("Frame {}/{}".format(n + 1, len(gif)))
-            img = operation.apply(frame, iterations=self.args.iterations)
+            frame = operation.apply(frame, iterations=self.args.iterations)
 
             # save frame
             filename = os.path.splitext(os.path.basename(
                 self.args.image_path))[0] + "_frame" + str(n) + ".png"
-            save_img(filename, img, self.args.network.deprocess_image)
+            save_img(filename, frame, self.args.network.deprocess_image)
 
             gif_out_frames.append(filename)
 

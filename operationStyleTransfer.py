@@ -84,7 +84,8 @@ class StyleTransfer(Operation):
         # get tensor representations of our images
         base_image = K.variable(img)
         style_reference_image = K.variable(
-            load_img(self.args.style, self.network.preprocess_image, (img_nrows, img_ncols, 3)))
+            load_img(self.args.style, self.network.preprocess_image,
+                     (1, img_nrows, img_ncols, 3)))
 
         # this will contain our generated image
         if K.image_data_format() == 'channels_first':
@@ -99,8 +100,9 @@ class StyleTransfer(Operation):
 
         # build the VGG16 network with our 3 images as input
         # the model will be loaded with pre-trained ImageNet weights
-        model = self.network.model.__init__(input_tensor=input_tensor,
-                                 weights='imagenet', include_top=False)
+        model = self.network(input_tensor=input_tensor,
+                             weights='imagenet',
+                             include_top=False)
 
         print('Model loaded.')
 
@@ -242,7 +244,7 @@ class StyleTransfer(Operation):
 
         # run scipy-based optimization (L-BFGS) over the pixels of the generated image
         # so as to minimize the neural style loss
-        x = imgLib.load_img(self.args.image_path) # try with preprocess?
+        x = load_img(self.args.image_path) # try with preprocess?
 
         for i in range(iterations):
             print('Start of iteration', i)

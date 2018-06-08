@@ -14,8 +14,6 @@ def load_img(path, preprocess_func=lambda i: i, size=None):
     img = image.load_img(path) if not size\
         else image.load_img(path, target_size=size, interpolation='bilinear')
 
-    print(img.size)
-
     img = preprocess_func(img)
     return img
 

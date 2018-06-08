@@ -103,4 +103,4 @@ def check_args():
 if __name__ == "__main__":
     # get_args()
     check_args()
-    simple_run(VGG19, StyleTransfer, TimeLapse)
+    simple_run(InceptionV3, DeepDream, TimeLapse)

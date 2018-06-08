@@ -18,7 +18,7 @@ class TimeLapse(Output):
                 frame = operation.apply(frame, iterations=self.args.rate)
 
                 # save frame
-                filename = os.path.splitext(os.path.basename(
+                filename = self.args.output_prefix + os.path.splitext(os.path.basename(
                     self.args.image_path))[0] + "_frame" + str(n) + ".png"
                 save_img(filename, frame, self.args.network.deprocess_image)
 

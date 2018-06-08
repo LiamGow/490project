@@ -181,8 +181,8 @@ class GoogleDream(Operation):
         #Step 4 - Apply gradient ascent to that layer
         out = render_deepdream(tf.square(T(layer)), img0)
 
-        return PIL.Image.fromarray(np.uint8(np.clip(out, 0, 1) * 255 / 2))
-
+        # return PIL.Image.fromarray(np.uint8(np.clip(out, 0, 1) * 255))
+        return PIL.Image.fromarray(np.uint8(np.clip(out, 0, 255)))
 
 if __name__ == '__main__':
     GoogleDream.apply(sys.argv[1], 10, 4)

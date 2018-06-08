@@ -12,10 +12,9 @@ from myLib import Network
 
 class VGG19(Network):
 
-    def __init__(self, img_tensor):
+    def __init__(self):
         super().__init__()
-        self.model = vgg19.VGG19(input_tensor=img_tensor,
-                                 weights='imagenet', include_top=False)
+        self.model = vgg19.VGG19(weights='imagenet', include_top=False)
 
     # util function to open, resize and format pictures into tensors
     @staticmethod

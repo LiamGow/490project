@@ -27,7 +27,7 @@ def main():
         Cfg.nframes -= 1
 
     # write out the dream sequence as gif
-    save_gif(Cfg.img_nm_base + "_dreaming.gif", gif_out_frames)
+    save_gif(Cfg.img_nm_base + "_dreaming.gif", gif_out_frames, network.deprocess_image)
 
 
 def check_args():

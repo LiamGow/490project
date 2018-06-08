@@ -19,9 +19,9 @@ class VGG19(Network):
     # util function to open, resize and format pictures into tensors
     @staticmethod
     def preprocess_image(img):
-        img = image.img_to_array(img)
-        img = np.expand_dims(img, axis=0)
-        print(img.size)
+        # img = image.img_to_array(img)
+        # img = np.expand_dims(img, axis=0)
+        # print(img.size)
         return vgg19.preprocess_input(img)
 
     # util function to convert a tensor into a valid image

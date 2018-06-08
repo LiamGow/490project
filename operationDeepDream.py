@@ -28,7 +28,7 @@ class DeepDream(Operation):
     def gradient_ascent(self, x, iterations, step, max_loss=None):
         for i in range(iterations):
             loss_value, grad_values = self.eval_loss_and_grads(x)
-            if max_loss is not None and loss_value > max_loss:
+            if max_loss and loss_value > max_loss:
                 break
             x += step * grad_values
         return x

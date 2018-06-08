@@ -83,7 +83,7 @@ def get_args():
                         help='Octaves per iteration.')
 
     # time lapse arguments
-    parser.add_argument('--rate', type=int, default=1, required=False,
+    parser.add_argument('-r', '--rate', type=int, default=1, required=False,
                         help='Iterations to run per frame.')
 
     return parser.parse_args()

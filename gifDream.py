@@ -8,6 +8,7 @@ import sys
 from png2gif import TimeLapse
 from dreamLib import DeepDream
 from inceptionV3Lib import InceptionV3
+from gif2gif import GifDream
 
 
 def simple_run(network, operation, output):
@@ -39,7 +40,7 @@ def check_args():
 
 
 def main():
-    simple_run(InceptionV3, DeepDream, TimeLapse)
+    simple_run(InceptionV3, DeepDream, GifDream)
 
 
 if __name__ == "__main__":

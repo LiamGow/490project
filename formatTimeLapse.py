@@ -23,4 +23,6 @@ class TimeLapse(Output):
 
             gif_out_frames.append(filename)
 
+            del frame
+
         return gif_out_frames

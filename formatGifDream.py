@@ -21,6 +21,8 @@ class GifDream(Output):
                 self.args.image_path))[0] + "_frame" + str(n) + ".png"
             save_img(filename, frame, self.args.network.deprocess_image)
 
+            del frame
+
             gif_out_frames.append(filename)
 
         return gif_out_frames

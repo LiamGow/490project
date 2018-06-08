@@ -91,16 +91,17 @@ def get_args():
     return parser.parse_args()
 
 
-def check_args():
-    if len(sys.argv) < 3:
-        print("Usage: python3 png2gif.py <src_img> <#frames> [<rate>]")
-        sys.exit()
-    Cfg.image_path = sys.argv[1]
-    Cfg.image_path_base = Cfg.image_path[0:Cfg.image_path.find('.')]
-    Cfg.nframes = int(sys.argv[2])
-    Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+# def check_args():
+#     if len(sys.argv) < 3:
+#         print("Usage: python3 png2gif.py <src_img> <#frames> [<rate>]")
+#         sys.exit()
+#     Cfg.image_path = sys.argv[1]
+#     Cfg.image_path_base = Cfg.image_path[0:Cfg.image_path.find('.')]
+#     Cfg.nframes = int(sys.argv[2])
+#     Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
 
 
 if __name__ == "__main__":
-    # check_args()
-    simple_run(InceptionV3, DeepDream, TimeLapse, get_args())
+    args = get_args()
+    gs = globals()
+    simple_run(gs[args.network], gs[args.operation], gs[args.format], args)

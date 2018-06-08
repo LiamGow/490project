@@ -1,5 +1,3 @@
-from myLib import Cfg
-
 import numpy as np
 from keras.preprocessing import image
 from PIL import Image

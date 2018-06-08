@@ -15,6 +15,7 @@ class GoogleDream(Operation):
     def __init__(self, args, model):
         self.args = args
 
+
     def apply(self, image, iterations):
         total_octaves = self.args.octaves
         #Step 1 - download google's pre-trained neural network

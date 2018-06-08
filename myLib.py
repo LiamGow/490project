@@ -4,7 +4,7 @@ class Cfg:
     abstraction_lvl = 1
     max_loss = None
     grad_step = 0.01
-    iterct = 50
+    iterct = 150
 
     img_nm = None
     img_nm_base = None

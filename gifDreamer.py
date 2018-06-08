@@ -31,7 +31,7 @@ def simple_run(network, operation, format, args):
     # dream algorithm
     gif = form.run(img, op)
 
-    print(gif.shape)
+    print(gif[0].shape)
 
     # write out the dream sequence as gif
     base = os.path.splitext(os.path.basename(args.image_path))[0]

@@ -264,6 +264,6 @@ class StyleTransfer(Operation):
             # imgLib.save_img(img, fname, self.network.deprocess_image)
             end_time = time.time()
             # print('Image saved as', fname)
-            print('Iteration %d/%d completed in %ds' % (i + 1, self.args.iterations, end_time - start_time))
+            print('Iteration %d/%d completed in %ds' % (i + 1, iterations, end_time - start_time))
 
         return x.reshape(1, img_nrows, img_ncols, 3)

@@ -13,8 +13,8 @@ class GifDream(Output):
 
         # deep dream algorithm
         print("Total frames", len(gif))
-        for i, frame in enumerate(gif):
-            print("Processing frame ", i)
+        for n, frame in enumerate(gif):
+            print("Iteration {}/{}", n + 1, self.args.iterations)
             frm = operation.apply(frame, iterations=self.args.iterations)
 
             gif_out_frames.append(np.copy(frm))

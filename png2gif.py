@@ -13,7 +13,7 @@ def main():
     K.set_learning_phase(0)  # disables all training specific operations
 
     network = InceptionV3()
-    op = DeepDream(network.model)
+    operation = DeepDream(network.model)
 
     # get the input img
     img_path = Cfg.src_dir + Cfg.img_nm
@@ -22,7 +22,7 @@ def main():
     # deep dream algorithm
     gif_out_frames = []
     while (Cfg.nframes > 0):
-        img = op.apply(img, iterations=1)
+        img = operation.apply(img, iterations=1)
         gif_out_frames.append(np.copy(img))
         Cfg.nframes -= 1
 

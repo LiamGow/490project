@@ -8,26 +8,25 @@ from keras import backend as K
 
 import sys
 
+
+class TimeLapse(Output):
+
+    def __init__(self):
+        self.load = load_img
+
+    def run(self, img, operation):
+        gif_out_frames = []
+        while Cfg.nframes > 0:
+            img = operation.apply(img, iterations=Cfg.rate)
+            gif_out_frames.append(np.copy(img))
+            Cfg.nframes -= 1
+
+        return gif_out_frames
+
+
 def main():
     check_args()
-    K.set_learning_phase(0)  # disables all training specific operations
-
-    network = InceptionV3()
-    operation = DeepDream(network.model)
-
-    # get the input img
-    img_path = Cfg.src_dir + Cfg.img_nm
-    img = load_img(img_path, network.preprocess_image)
-
-    # deep dream algorithm
-    gif_out_frames = []
-    while (Cfg.nframes > 0):
-        img = operation.apply(img, iterations=Cfg.rate)
-        gif_out_frames.append(np.copy(img))
-        Cfg.nframes -= 1
-
-    # write out the dream sequence as gif
-    save_gif(Cfg.img_nm_base + "_dreaming.gif", gif_out_frames, network.deprocess_image)
+    simple_run(InceptionV3, DeepDream, TimeLapse)
 
 
 def check_args():

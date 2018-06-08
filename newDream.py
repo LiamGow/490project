@@ -146,8 +146,8 @@ class GoogleDeepDream(Operation):
 
 
         def render_deepdream(t_obj, img0=img_noise,
-                             iter_n=total_iterations, step=1.5,
-                             octave_n=total_octaves, octave_scale=1.4):
+                             iter_n=iterations, step=1.5,
+                             octave_n=octaves, octave_scale=1.4):
             t_score = tf.reduce_mean(t_obj) # defining the optimization objective
             t_grad = tf.gradients(t_score, t_input)[0] # behold the power of automatic differentiation!
 

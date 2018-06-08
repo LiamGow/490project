@@ -11,6 +11,7 @@ from inceptionV3Lib import InceptionV3
 
 
 def simple_run(network, operation, output):
+    check_args()
     K.set_learning_phase(0)  # disables all training specific operations
 
     net = network()

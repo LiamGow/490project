@@ -32,6 +32,3 @@ def check_args():
     Cfg.img_nm_base = Cfg.img_nm[0:Cfg.img_nm.find('.')]
     Cfg.nframes = int(sys.argv[2])
     Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
-
-if __name__ == "__main__":
-    main()

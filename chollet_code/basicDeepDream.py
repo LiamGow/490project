@@ -65,10 +65,10 @@ K.set_learning_phase(0)
 
 model = inception_v3.InceptionV3(weights='imagenet', include_top=False)
 
-layer_contributions = {'mixed2': 0.2,
-                       'mixed3': 3.,
-                       'mixed4': 4.,
-                       'mixed5': 1.5,
+layer_contributions = {'mixed2': 0.4,
+                       'mixed3': 6.,
+                       'mixed4': 8.,
+                       'mixed5': 3,
                        }
 
 layer_dict = dict([(layer.name, layer) for layer in model.layers])
@@ -99,12 +99,12 @@ fetch_loss_and_grads = K.function([dream], outputs)
 
 
 step = 0.01 # Gradient ascent step size
-num_octave = 3 # Number of scales at which to run the gradient ascent
-octave_scale = 1.4 # Size ratio between the scales
-iterations = 20 # Number of ascent steps to run at each scale
+num_octave = 5 # Number of scales at which to run the gradient ascent
+octave_scale = 1.2 # Size ratio between the scales
+iterations = 200 # Number of ascent steps to run at each scale
 # If the loss grows larger than 10, you'll interrupt the gradient-ascent
 # process to avoid ugly artifacts
-max_loss = 10.
+max_loss = 100.
 
 # Fill this with the path to the image you want to use
 base_image_path = sys.argv[1]

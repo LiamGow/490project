@@ -37,6 +37,7 @@ def get_lyr_contribs(arch_dict, depth_tgt=0.5):
     filter_str = "mixed"
     for lyrnm, lyr in arch_dict.items():
         if (filter_str in lyrnm):
+#             print(lyrnm)
             non_filter_part = lyrnm[len(filter_str):]
 
             try:
@@ -46,6 +47,8 @@ def get_lyr_contribs(arch_dict, depth_tgt=0.5):
 
             candidates.append((srtV, lyrnm))
 
+#     print(candidates)
+#     exit()
     tgt_num_lyrs_that_influence_loss = 5
 
     candidates.sort()

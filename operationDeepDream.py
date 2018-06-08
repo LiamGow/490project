@@ -1,20 +1,21 @@
 import numpy as np
 from keras import backend as K
 
-from myLib import Cfg, Operation
+from myLib import Operation
 
 
 class DeepDream(Operation):
 
-    def __init__(self, model):
+    def __init__(self, args, model):
         self.layer_dict = dict([(layer.name, layer) for layer in model.layers])
         self.flgrads = self.get_flgrad(self.get_loss(), model.input)
+        self.args = args
 
-    def apply(self, img, iterations=1):
+    def apply(self, img, iterations):
         return self.gradient_ascent(img,
                                     iterations=iterations,
-                                    step=Cfg.grad_step,
-                                    max_loss=Cfg.max_loss)
+                                    step=self.args.step,
+                                    max_loss=self.args.max_loss)
 
     @staticmethod
     def get_flgrad(loss, dream):
@@ -41,7 +42,7 @@ class DeepDream(Operation):
         return loss_value, grad_values
 
     def get_loss(self):
-        lyr_contr = self.get_lyr_contribs(depth_tgt=Cfg.abstraction_lvl)
+        lyr_contr = self.get_lyr_contribs(depth_tgt=self.args.abstraction)
 
         loss = K.variable(0.)
         for layer_name in lyr_contr:

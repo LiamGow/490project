@@ -4,14 +4,14 @@ from imgLib import *
 
 class TimeLapse(Output):
 
-    def __init__(self):
+    def __init__(self, args):
         self.load = load_img
+        self.args = args
 
     def run(self, img, operation):
         gif_out_frames = []
-        while Cfg.nframes > 0:
-            img = operation.apply(img, iterations=Cfg.rate)
+        for n in range(self.args.iterations):
+            img = operation.apply(img, iterations=self.args.rate)
             gif_out_frames.append(np.copy(img))
-            Cfg.nframes -= 1
 
         return gif_out_frames

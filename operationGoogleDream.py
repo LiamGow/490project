@@ -12,11 +12,11 @@ from myLib import Operation, Network
 
 class GoogleDream(Operation):
 
-    def __init__(self, model):
-        pass
+    def __init__(self, args, model):
+        self.args = args
 
-    @staticmethod
-    def apply(image, iterations, total_octaves=4):
+    def apply(self, image, iterations):
+        total_octaves = self.args.octaves
         #Step 1 - download google's pre-trained neural network
         url = 'https://storage.googleapis.com/download.tensorflow.org/models/inception5h.zip'
         data_dir = './data/'

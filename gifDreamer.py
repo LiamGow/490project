@@ -23,21 +23,21 @@ from formatTimeLapse import TimeLapse
 
 
 
-def simple_run(network, operation, format):
+def simple_run(network, operation, format, args):
     backend.set_learning_phase(0)  # disables all training specific operations
 
     net = network()
-    op = operation(net.model)
-    form = format()
+    op = operation(args, net.model)
+    form = format(args)
 
     # get the input img
-    img = form.load(Cfg.image_path, net.preprocess_image)
+    img = form.load(args.image_path, net.preprocess_image)
 
     # deep dream algorithm
     gif = form.run(img, op)
 
     # write out the dream sequence as gif
-    save_gif(os.path.splitext(Cfg.image_path)[0] + ".gif", gif, net.deprocess_image)
+    save_gif(os.path.splitext(args.image_path)[0] + ".gif", gif, net.deprocess_image)
 
 def get_args():
     parser = argparse.ArgumentParser(description='Keras gif dreamer.')
@@ -53,7 +53,7 @@ def get_args():
     # i/o arguments
     parser.add_argument('image_path', type=str,
                         help='Path to the image/gif to transform.')
-    parser.add_argument('out_prefix', type=str,
+    parser.add_argument('out_prefix', type=str, required=False,
                         help='Prefix for the saved results.')
 
     # general arguments
@@ -102,6 +102,5 @@ def check_args():
 
 
 if __name__ == "__main__":
-    # get_args()
-    check_args()
-    simple_run(InceptionV3, DeepDream, TimeLapse)
+    # check_args()
+    simple_run(InceptionV3, DeepDream, TimeLapse, get_args())

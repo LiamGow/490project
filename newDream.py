@@ -100,8 +100,8 @@ class GoogleDeepDream(Operation):
             a = np.uint8(np.clip(a, 0, 1)*255)
             img = PIL.Image.fromarray(a)
             img.save("output.jpeg")
-            plt.imshow(a)
-    #         plt.show()
+            # plt.imshow(a)
+    #       # plt.show()
 
         def visstd(a, s=0.1):
             '''Normalize the image range for visualization'''
@@ -173,7 +173,7 @@ class GoogleDeepDream(Operation):
 
                 #this will usually be like 3 or 4 octaves
                 #Step 5 output deep dream image via matplotlib
-                showarray(img/255.0)
+                # showarray(img/255.0)
 
 
 

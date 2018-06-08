@@ -9,9 +9,10 @@ from myLib import Network
 
 class InceptionV3(Network):
 
-    def __init__(self):
+    def __init__(self, input_tensor=None):
         super().__init__()
-        self.model = inception_v3.InceptionV3(weights='imagenet',
+        self.model = inception_v3.InceptionV3(input_tensor=input_tensor,
+                                              weights='imagenet',
                                               include_top=False)
 
     @staticmethod

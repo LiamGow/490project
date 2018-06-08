@@ -7,9 +7,9 @@ from myLib import Operation
 class DeepDream(Operation):
 
     def __init__(self, args, model):
+        self.args = args
         self.layer_dict = dict([(layer.name, layer) for layer in model.layers])
         self.flgrads = self.get_flgrad(self.get_loss(), model.input)
-        self.args = args
 
     def apply(self, img, iterations):
         return self.gradient_ascent(img,

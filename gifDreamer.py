@@ -1,5 +1,6 @@
 import sys
 import argparse
+import os
 
 from keras import backend
 
@@ -36,7 +37,7 @@ def simple_run(network, operation, format):
     gif = form.run(img, op)
 
     # write out the dream sequence as gif
-    save_gif(Cfg.image_path + ".gif", gif, net.deprocess_image)
+    save_gif(os.path.splitext(Cfg.image_path)[0] + ".gif", gif, net.deprocess_image)
 
 def get_args():
     parser = argparse.ArgumentParser(description='Keras gif dreamer.')

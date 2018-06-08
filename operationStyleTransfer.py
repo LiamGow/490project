@@ -18,3 +18,4 @@ from myLib import Operation
 class StyleTransfer(Operation):
 
     def __init__(self, model):
+        pass

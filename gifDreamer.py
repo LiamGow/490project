@@ -53,7 +53,7 @@ def get_args():
     # i/o arguments
     parser.add_argument('image_path', type=str,
                         help='Path to the image/gif to transform.')
-    parser.add_argument('-p', '--out_prefix', type=str, required=False,
+    parser.add_argument('-o', '--out_prefix', type=str, required=False,
                         help='Prefix for the saved results.')
 
     # general arguments
@@ -80,13 +80,14 @@ def get_args():
     parser.add_argument('-v', '--tv_weight', type=float, default=1.0, required=False,
                         help='Total Variation weight.')
 
-    # deep dream arguments
-    parser.add_argument('-r', '--rate', type=int, default=1, required=False,
+    # google dream arguments
+    parser.add_argument('--octaves', type=int, default=4, required=False,
+                        help='Octaves per iteration.')
+
+    # time lapse arguments
+    parser.add_argument('--rate', type=int, default=1, required=False,
                         help='Iterations to run per frame.')
 
-    # google dream arguments
-    parser.add_argument('-o', '--octaves', type=int, default=4, required=False,
-                        help='Octaves per iteration.')
 
     return parser.parse_args()
 

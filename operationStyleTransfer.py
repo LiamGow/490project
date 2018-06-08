@@ -64,7 +64,7 @@ class StyleTransfer(Operation):
         self.args = args
         self.network = network
 
-    def apply(self, img, iteration):
+    def apply(self, img, iterations):
 
         # base_image_path = self.args.image_path
         # style_reference_image_path = args.style_reference_image_path
@@ -243,7 +243,7 @@ class StyleTransfer(Operation):
         # so as to minimize the neural style loss
         x = imgLib.load_img(self.args.image_path) # try with preprocess?
 
-        for i in range(self.args.iterations):
+        for i in range(iterations):
             print('Start of iteration', i)
             start_time = time.time()
             x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(),

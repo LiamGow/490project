@@ -55,4 +55,5 @@ def load_gif(gif_path, preprocess_func=lambda i: i):
             imgs.append(np.copy(img))
             gif.seek(gif.tell() + 1)
     except EOFError:
+        print("Gif frames: " + str(len(imgs)))
         return imgs

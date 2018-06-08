@@ -34,7 +34,7 @@ def save_gif(path, frame_list, postprocess_func=lambda i: i):
     for filename in filenames:
         images.append(imageio.imread(filename))
 
-    imageio.mimsave(path, images, duration=0.1)
+    imageio.mimsave(os.path.splitext(path)[0], images, duration=0.1)
 
     for filename in filenames:
         os.remove(filename)

@@ -4,8 +4,6 @@ from imgLib import *
 from dreamLib import DeepDream
 from inceptionV3Lib import InceptionV3
 
-from gifDream import simple_run
-
 import sys
 
 class GifDream(Output):
@@ -27,9 +25,6 @@ class GifDream(Output):
         return gif_out_frames
 
 
-def main():
-    check_args()
-    simple_run(InceptionV3, DeepDream, GifDream)
 
 # def main():
 #     check_args()
@@ -65,7 +60,3 @@ def check_args():
         sys.exit()
     Cfg.img_nm = sys.argv[1]
     Cfg.img_nm_base = Cfg.img_nm[0:Cfg.img_nm.find('.')]
-
-
-if __name__ == "__main__":
-    main()

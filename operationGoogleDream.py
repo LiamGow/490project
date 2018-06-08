@@ -179,7 +179,9 @@ class GoogleDream(Operation):
         img0 = np.float32(image)
 
         #Step 4 - Apply gradient ascent to that layer
-        return render_deepdream(tf.square(T(layer)), img0)
+        out = render_deepdream(tf.square(T(layer)), img0)
+
+        return PIL.Image.fromarray(np.uint8(np.clip(out, 0, 1) * 255))
 
 
 if __name__ == '__main__':

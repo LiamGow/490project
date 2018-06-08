@@ -85,7 +85,7 @@ class StyleTransfer(Operation):
         # get tensor representations of our images
 
         # base_image = K.variable(img)
-        base_image = Image.fromarray(self.network.deprocess_image(img))
+        base_image = Image.fromarray(self.network.deprocess_image(np.copy(img)))
         base_image.resize(size, Image.LANCZOS)
         base_image = K.variable(self.network.preprocess_image(base_image))
         style_reference_image = K.variable(

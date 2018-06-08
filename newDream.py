@@ -10,7 +10,7 @@ import zipfile
 from myLib import Operation, Network
 
 
-class GNetwork(Network):
+class PILEmptyNetwork(Network):
     def __init__(self, model):
         self.model = None
 

@@ -1,48 +1,31 @@
-from keras import backend as K
-
-from imgLib import *
 from myLib import *
+from imgLib import *
 
 import sys
 
-from png2gif import TimeLapse
-from dreamLib import DeepDream
-from inceptionV3Lib import InceptionV3
-from gif2gif import GifDream
 
+class GifDream(Output):
 
-def simple_run(network, operation, output):
-    check_args()
-    K.set_learning_phase(0)  # disables all training specific operations
+    def __init__(self):
+        self.load = load_gif
 
-    net = network()
-    op = operation(net.model)
-    out = output()
+    def run(self, gif, operation):
+        gif_out_frames = []
 
-    # get the input img
-    img = out.load(Cfg.src_dir + Cfg.img_nm, net.preprocess_image)
+        # deep dream algorithm
+        print("Total frames", len(gif))
+        for i, frame in enumerate(gif):
+            print("Processing frame ", i)
+            frm = operation.apply(frame, iterations=Cfg.iterct)
 
-    # deep dream algorithm
-    gif = out.run(img, op)
+            gif_out_frames.append(np.copy(frm))
 
-    # write out the dream sequence as gif
-    save_gif(Cfg.img_nm_base + "_dreaming.gif", gif, net.deprocess_image)
+        return gif_out_frames
 
 
 def check_args():
-    if len(sys.argv) < 3:
-        print("Usage: python3 png2gif.py <src_img> <#frames> [<rate>]")
+    if len(sys.argv) != 2:
+        print("Usage: python3 gif2gif.py <src_gif>")
         sys.exit()
     Cfg.img_nm = sys.argv[1]
     Cfg.img_nm_base = Cfg.img_nm[0:Cfg.img_nm.find('.')]
-    Cfg.nframes = int(sys.argv[2])
-    Cfg.rate = int(sys.argv[3]) if len(sys.argv) > 3 else 1
-
-
-def main():
-    simple_run(InceptionV3, DeepDream, GifDream)
-
-
-if __name__ == "__main__":
-    main()
-

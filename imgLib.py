@@ -26,7 +26,7 @@ def save_gif(path, frame_list, postprocess_func=lambda i: i):
     print("saving", path)
 
     for i, frame in enumerate(frame_list):
-        filename = path + "_frame" + str(i) + ".png"
+        filename = os.path.basename(path) + "_frame" + str(i) + ".png"
         filenames.append(filename)
 
         save_img(filename, frame, postprocess_func)
@@ -46,7 +46,7 @@ def load_gif(gif_path, preprocess_func=lambda i: i):
     try:
         while 1:
             # save gif frame as png
-            fpath = gif_path + "_frame" + str(gif.tell()) + ".png"
+            fpath = os.path.basename(gif_path) + "_frame" + str(gif.tell()) + ".png"
             gif.save(fpath)
 
             # load png

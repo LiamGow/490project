@@ -9,6 +9,7 @@ class Cfg:
     img_nm = None
     img_nm_base = None
     nframes = None
+    rate = 1
 
 
 class Network:

@@ -19,21 +19,21 @@ from formatGifDream import GifDream
 from formatTimeLapse import TimeLapse
 
 
-def simple_run(network, operation, format, args):
+def simple_run(args):
     backend.set_learning_phase(0)  # disables all training specific operations
 
-    op = operation(args, network)
-    form = format(args)
+    op = args.operation(args, args.network)
+    form = args.format(args)
 
     # get the input img
-    img = form.load(args.image_path, network.preprocess_image)
+    img = form.load(args.image_path, args.network.preprocess_image)
 
     # dream algorithm
     frame_paths = form.run(img, op)
 
     # write out the dream sequence as gif
     base = os.path.splitext(os.path.basename(args.image_path))[0]
-    save_gif_paths(args.out_prefix + base + ".gif", frame_paths, network.deprocess_image)
+    save_gif_paths(args.out_prefix + base + ".gif", frame_paths, args.network.deprocess_image)
 
 def get_args():
     parser = argparse.ArgumentParser(description='Keras gif dreamer.')
@@ -95,4 +95,4 @@ if __name__ == "__main__":
     args.operation = gs[args.operation]
     args.format = gs[args.format]
 
-    simple_run(args.network, args.operation, args.format, args)
+    simple_run(args)
